@@ -1,0 +1,186 @@
+/* Set default font family and remove margin/padding from body */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Background video styling */
+#background-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 50%;
+  min-height: 50%;
+  z-index: -1;
+}
+
+/* Styling for the top bar */
+.top-bar {
+  background-color: rgba(49, 37, 90, 0.7); /* Purple background with transparency */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* White shadow effect */
+  color: white;
+  padding: 20px; /* Padding inside the top bar */
+  text-align: center;
+  border-radius: 10px;
+}
+
+/* Styling for the search input */
+#searchData {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 16px;
+  width: 200px;
+  margin-right: 10px;
+  margin-top: 20px;
+}
+
+/* Styling for buttons */
+button {
+  padding: 10px 20px;
+  background-color: #75b4e3; /* Blue background color */
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #75b4e3; /* Hover effect for button */
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 1); /* Focus effect with shadow */
+}
+
+/* Sidebar styling */
+#mySidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: #31255a; /* Dark purple background color */
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+/* Sidebar links */
+#mySidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #f1f1f1;
+  display: block;
+  transition: 0.3s;
+}
+
+#mySidenav a:hover {
+  color: #818181; /* Hover effect for sidebar links */
+}
+
+#mySidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* Main content area */
+#main {
+  transition: margin-right .5s;
+  padding: 16px;
+  margin-right: 0;
+}
+
+/* Media query for smaller screens */
+@media screen and (max-height: 450px) {
+  #mySidenav {padding-top: 15px;}
+  #mySidenav a {font-size: 18px;}
+}
+
+/* Button to open sidebar */
+.openbtn {
+  position: absolute;
+  top: 90px;
+  right: 45px;
+  cursor: pointer;
+  color: white;
+  font-size: 45px;
+  margin-top: 10px;
+}
+
+/* Weather container styling */
+#weather-container {
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px auto; 
+  max-width: 600px; 
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.95; 
+  animation: fadeIn 1s ease forwards; 
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Styling for weather information */
+.weather-info {
+  display: flex;
+  align-items: center;
+}
+
+.weather-details {
+  margin-left: 20px;
+}
+
+.weather-data {
+  margin: 5px 0;
+}
+
+/* Styling for unknown country text */
+#unknown-country {
+  color: #007bff;
+  margin-top: 20px;
+}
+
+#unknown-country:hover {
+  text-decoration: underline; /* Hover effect for unknown country text */
+}
+
+/* Animated header */
+.animated-header {
+  animation-name: slideInFromLeft;
+  animation-duration: 1.5s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
+
+/* Slide in from left animation */
+@keyframes slideInFromLeft {
+  from {
+    margin-left: -100%;
+    opacity: 0;
+  }
+  to {
+    margin-left: 0;
+    opacity: 1;
+  }
+}

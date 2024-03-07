@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #31255a; 
+        }
+        
+        #background-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+        }
+        
+        #mySidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            background-color: #31255a;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        #mySidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #f1f1f1;
+            display: block;
+            transition: 0.3s;
+            border-radius: 20px 20px 20px;
+        }
+
+        #mySidenav a:hover {
+            color: #818181;
+        }
+
+        #mySidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 70px;
+        }
+
+        #main {
+            transition: margin-right .5s;
+            padding: 16px;
+            margin-right: 0;
+        }
+
+        .openbtn {
+            position: absolute;
+            top: 90px;
+            right: 45px;
+            cursor: pointer;
+            color: white;
+            font-size: 30px;
+        }
+
+        .top-bar {
+            background-color: rgba(49, 37, 90, 0.7); 
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); 
+            color: white;
+            padding: 20px; 
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .search-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #searchData {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            font-size: 16px;
+            width: 200px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #75b4e3;
+            color: white;
+            border: none;
+            border-radius: 20px 20px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #5a9def;
+        }
+
+        button:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 1);
+        }
+
+        #weather-container {
+            display: none; 
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.2); 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .weather-info {
+            margin: 10px 0;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.3); 
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .weather-info strong {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .weather-info img {
+            max-width: 1500px; 
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .weather-info p {
+            margin: 0;
+            color: #333; 
+        }
+
+
+        .comment-box {
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.5s; 
+        }
+
+        .comment {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        .comment:last-child {
+            border-bottom: none;
+        }
+
+        .comment-text {
+            margin-bottom: 5px;
+            color:white;
+        }
+
+        .comment-actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .comment-actions button {
+            padding: 5px 10px;
+            margin-left: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: none;
+        }
+
+        .comment-actions button:hover {
+            background-color: #75b4e3;
+            color: white;
+        }
+
+        .form-container {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.5s; 
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"],
+        button[type="button"] {
+            padding: 10px 20px;
+            background-color: #75b4e3;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover,
+        button[type="button"]:hover {
+            background-color: #5a9def;
+        }
+
+        button[type="submit"]:focus,
+        button[type="button"]:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 1);
+        }
+
+        .fade-out {
+            opacity: 0;
+        }
+
+        .fade-in {
+            opacity: 1;
+        }
+
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <video autoplay muted loop id="background-video">
+        <source src="image/country.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <center>
+            <a href="index.html" id="weatherLink">Weather</a>
+            <a href="Country.html" id="countryLink">Country</a>
+            <a href="#" id="aboutLink" onclick="showAbout()">About</a>
+            <a href="#" id="contactLink" onclick="showContact()">Contact</a>
+            <p id="timeDate" style="color: white; text-align: center; margin-top: 435px"></p>
+        </center>
+    </div>
+
+    <div id="main">
+        <div class="top-bar">
+            <span class="openbtn" onclick="openNav()">&#9776;</span>
+            <h1 style="font-family:sans-serif; display: inline-block; margin-right: 80px; animation: fadeIn 0.5s ease-in-out;">Country</h1>
+            <img src="image/wether.png" style="width: 70px; height: 70px; margin-left: 5px; float: left; cursor: pointer; margin-top: 40px;" alt="Weather Icon" onclick="redirectToIndex()">
+            <p style="font-family: cursive; margin-right: 80px;">Your Personal Country Tracker</p>
+
+            <div class="search-container">
+                <input type="text" id="searchData" placeholder="Enter Country" />
+                <button onclick="buttonClicked()" style="border-radius: 20px 20px 20px;">Search</button>
+            </div>
+        </div>
+        <div id="weather-container" class="fade-in">
+            <div id="Flag" class="weather-info">
+                <p></p>
+            </div>
+            <div id="Country" class="weather-info">
+                <strong>Country:</strong>
+                <p></p>
+            </div>
+            <div id="Capital" class="weather-info">
+                <strong>Capital:</strong>
+                <p></p>
+            </div>
+            <div id="Region" class="weather-info">
+                <strong>Region:</strong>
+                <p></p>
+            </div>
+            <div id="Timezone" class="weather-info">
+                <strong>Timezone:</strong>
+                <p></p>
+            </div>
+            <div id="Currencies" class="weather-info">
+                <strong>Currencies:</strong>
+                <p></p>
+            </div>
+        </div>
+
+        <div class="comment-box fade-in">
+            <h2 style="color: white;">Comments</h2>
+            <div id="comments">
+                
+            </div>
+            <div class="form-container">
+                <form id="commentForm">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="commentText">Comment:</label>
+                        <textarea id="commentText" name="commentText" placeholder="Write your comment here" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Add Comment</button>
+                        <button type="button" onclick="clearComments()">Clear Comments</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    
+        <div class="modal fade" id="commentSuccessModal" tabindex="-1" role="dialog" aria-labelledby="commentSuccessModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="commentSuccessModalLabel">Success!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Comment added successfully!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        function buttonClicked() {
+            var name = document.getElementById("searchData").value;
+            fetch(`https://restcountries.com/v3.1/name/${name}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        const country = data[0];
+                        updateCountryInfo(country);
+                    } else {
+                        resetWeatherData();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching country data:', error);
+                    resetWeatherData();
+                });
+        }
+
+
+        function updateCountryInfo(country) {
+        if (!country || Object.keys(country).length === 0) {
+            
+            document.getElementById("Country").innerHTML = "<strong>Country:</strong> Not found";
+            document.getElementById("Capital").innerHTML = "<strong>Capital:</strong> Not found";
+            document.getElementById("Region").innerHTML = "<strong>Region:</strong> Not found";
+            document.getElementById("Timezone").innerHTML = "<strong>Timezone:</strong> Not found";
+            document.getElementById("Flag").innerHTML = "<strong>Flag:</strong> Not found";
+            document.getElementById("Currencies").innerHTML = "<strong>Currencies:</strong> Not found";
+        } else {
+            
+            document.getElementById("Country").innerHTML = `<strong>Country:</strong> ${country.name.common}`;
+            document.getElementById("Capital").innerHTML = `<strong>Capital:</strong> ${country.capital}`;
+            document.getElementById("Region").innerHTML = `<strong>Region:</strong> ${country.region}`;
+            document.getElementById("Timezone").innerHTML = `<strong>Timezone:</strong> ${country.timezones}`;
+
+            if (country.flags && country.flags.png) {
+                document.getElementById("Flag").innerHTML = `<img src="${country.flags.png}" alt="Flag" width="200">`;
+            } else {
+                document.getElementById("Flag").innerHTML = "<strong>Flag:</strong> Not available";
+            }
+
+            const currencyNames = Object.values(country.currencies).map(currency => currency.name).join(', ');
+            document.getElementById("Currencies").innerHTML = `<strong>Currencies:</strong> ${currencyNames}`;
+        }
+    }
+
+        function resetWeatherData() {
+            document.getElementById("Country").innerHTML = "<strong>Country:</strong> Not found";
+            document.getElementById("Capital").innerHTML = "<strong>Capital:</strong> Not found";
+            document.getElementById("Region").innerHTML = "<strong>Region:</strong> Not found";
+            document.getElementById("Subregion").innerHTML = "<strong>Subregion:</strong> Not found";
+            document.getElementById("Timezone").innerHTML = "<strong>Timezone:</strong> Not found";
+            document.getElementById("Flag").innerHTML = "<strong>Flag:</strong> Not found";
+            document.getElementById("Currencies").innerHTML = "<strong>Currencies:</strong> Not found";
+            document.getElementById("Population").innerHTML = "<strong>Population:</strong> Not found";
+            document.getElementById("Languages").innerHTML = "<strong>Languages:</strong> Not found";
+        }
+
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginRight = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginRight = "0";
+        }
+
+        function showAbout() {
+            var samad = "<div style='text-align: center; margin-top: 50px; font-family: cursive; color: white; font-size: 30px;'>ABOUT</div>";
+            var kimal = "<div style='text-align: center; margin-top: 50px; font-family: cursive; color: white;'>Welcome to WeatherNow, your simple and reliable weather companion. We believe that staying informed about the weather should be effortless, yet essential for planning your day.</div><br><br>\
+            <p style='text-align: center; margin-top: 50px; font-family: cursive; color: white;'>At WeatherNow, our mission is clear: to provide you with accurate, timely, and easy-to-understand weather information. We strive to make checking the weather as simple as glancing at your phone, so you can focus on what matters most to you.</p><br><br>\
+            <p style='text-align: center; margin-top: 50px; font-family: cursive; color: white; '>Download our Weather App today and make every day a well-prepared one, no matter what the skies may bring!</p>"; // Your lengthy description
+
+            var combinedText = samad + "<br><br>" + kimal;
+            document.getElementById("weather-container").innerHTML = combinedText;
+        }
+
+        function showContact() {
+            var contactText = "<div style='text-align: center; margin-top: 50px; font-family: cursive; color: white; font-size: 30px;'>CONTACT</div>";
+            contactText += "<div style='text-align: center; margin-top: 50px; font-family: cursive; color: white;'>Contact us at contact@weathernow.com for any inquiries, feedback, or support related to our services.</div>";
+
+            document.getElementById("weather-container").innerHTML = contactText;
+        }
+
+        function redirectToIndex() {
+            window.location.href = "index.html";
+        }
+
+        function clearComments() {
+            document.getElementById("comments").innerHTML = "";
+        }
+
+        document.getElementById("commentForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const commentText = document.getElementById("commentText").value;
+
+            if (!name || !email || !commentText) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            const commentElement = document.createElement("div");
+            commentElement.classList.add("comment");
+            commentElement.innerHTML = `
+                <p class="comment-text"><strong>${name}:</strong> ${commentText}</p>
+                <div class="comment-actions">
+                    <button class="btn btn-sm btn-danger edit-comment-button" onclick="editComment(this.parentElement.parentElement)">Edit</button>
+                    <button class="btn btn-sm btn-danger" onclick="this.parentElement.parentElement.remove()">Delete</button>   
+                </div>
+            `;
+            document.getElementById("comments").appendChild(commentElement);
+
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("commentText").value = "";
+
+            $('#commentSuccessModal').modal('show');
+        });
+
+        function editComment(commentElement) {
+            const commentTextElement = commentElement.querySelector('.comment-text');
+            const commentText = commentTextElement.textContent.trim();
+            const commentTextHTML = commentTextElement.innerHTML;
+
+            const inputElement = document.createElement('input');
+            inputElement.setAttribute('type', 'text');
+            inputElement.classList.add('edit-comment-input');
+            inputElement.value = commentText;
+
+            commentTextElement.innerHTML = '';
+            commentTextElement.appendChild(inputElement);
+
+            const editButton = commentElement.querySelector('.edit-comment-button');
+            editButton.textContent = 'Save';
+            editButton.setAttribute('onclick', 'saveComment(this)');
+
+            inputElement.focus();
+        }
+
+        function saveComment(buttonElement) {
+            const commentElement = buttonElement.parentElement.parentElement;
+            const inputElement = commentElement.querySelector('.edit-comment-input');
+            const newCommentText = inputElement.value;
+
+            const commentTextElement = commentElement.querySelector('.comment-text');
+            commentTextElement.innerHTML = newCommentText;
+
+            buttonElement.textContent = 'Edit';
+            buttonElement.setAttribute('onclick', 'editComment(this.parentElement.parentElement)');
+        }
+        
+    </script>
+    </div>
+</body>
+</html>

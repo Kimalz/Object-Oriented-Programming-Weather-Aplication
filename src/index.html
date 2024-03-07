@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Weather Web</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <!-- Video -->
+  <video autoplay muted loop id="background-video">
+    <source src="image/video (2160p).mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+  <!-- Navigation -->
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <center>
+      <a href="index.html" id="weatherLink">Weather</a>
+      <a href="Country.html" id="countryLink">Country</a>
+      <a href="#" id="aboutLink" onclick="showAbout()">About</a>
+      <a href="#" id="contactLink" onclick="showContact()">Contact</a>
+      <p id="timeDate" style="color: white; text-align: center; margin-top: 450px;"></p>
+    </center>
+  </div>
+<!-- header -->
+  <div id="main">
+    <div class="top-bar">
+      <span class="openbtn" onclick="openNav()">&#9776;</span>
+      <h1 style="font-family:sans-serif; display: inline-block;" class="animated-header">Weather</h1>
+      <img src="image/wether.png" style="width: 70px; height: 70px; margin-left: 5px; margin-top: 60px; float: left; cursor: pointer;" alt="Weather Icon" onclick="redirectToIndex()">
+      <p style="font-family: cursive;">Your Personal Weather Tracker</p>
+<!-- search -->
+      <div class="search-container">
+        <input type="text" id="searchData" placeholder="Enter Country" />
+        <button onclick="buttonClicked()">Search</button>
+        <button onclick="toggleUnit()">Change Unit</button>
+      </div>
+    </div>
+    <!-- data and picture-->
+    <div id="weather-container" style="display: none; color: white;">
+      <div class="weather-info">
+        <img id="weather-icon" src="" alt="Weather Icon" style="width: 200px; height: 200px;">
+        <div class="weather-details">
+          <img src="image/city.png" style="width: 30px; height: 30px; margin-left: 5px; margin-top: 2px; float: left;"><p class="weather-data" id="country" style="margin-left: 20px;"></p>
+          <p class="weather-data" id="lat" style="margin-left: 25px;">Latitude:</p>
+          <p class="weather-data" id="lon" style="margin-left: 35px;">Longitude:</p>
+          <p class="weather-data" id="code" style="margin-left: 35px;">Code:</p>
+          <img src="image/desd.png" style="width: 20px; height: 20px; margin-left: 15px; margin-top: 3px; float: left;"><p class="weather-data" id="desc">Description:</p>
+          <img src="image/l.png" style="width: 30px; height: 30px; margin-left: 5px; margin-top: -8px; float: left;"><p class="weather-data" id="temp">Current Temperature:</p>
+          <img src="image/yi.png" style="width: 25px; height: 25px; margin-left: 10px; margin-top: -1px; float: left;"><p class="weather-data" id="mintemp">Minimum Temperature:</p>
+          <img src="image/image.png" style="width: 25px; height: 25px; margin-left: 10px; margin-top: 5px; float: left;"><p class="weather-data" id="maxtemp">Maximum Temperature:</p>
+          <img src="image/mio.png" style="width: 20px; height: 20px; margin-left: -20px; margin-top: 6px; float: left;"><p class="weather-data" id="humidity">Humidity:</p>
+          <img src="image/sao.png" style="width: 30px; height: 30px; margin-left: 5px; margin-top: -5px; float: left;"><p class="weather-data" id="wspeed">Wind Speed:</p>
+          <img src="image/sunrise.png" style="width: 30px; height: 30px; margin-left: 0px; margin-top: -5px; float: left;"><p class="weather-data" id="sunrise">Sunrise:</p>
+          <img src="image/lols.png" style="width: 30px; height: 30px; margin-left: 0px; margin-top: -5px; float: left;"><p class="weather-data" id="sunset">Sunset:</p>
+        </div>
+      </div>
+      <center><p>Want To Learn More About This Country?</p></center>
+      <p id="unknown-country" style="text-align: center; cursor: pointer;" onclick="window.location.href = 'Country.html'">Click Here</p>
+    </div>
+  </div>
+
+  <script src="fetchapi.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
